@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestCheck1;
 
 namespace Dev_Test_Nov_2021
 {
@@ -11,6 +12,8 @@ namespace Dev_Test_Nov_2021
     {
         static void Main(string[] args)
         {
+            AgeByName.GetDataWithoutAuthentication();
+
             //Part 2
             List<Product> products = new List<Product> {
                 new Product {Id = "B091NE9K3", Price =59.96, Quantity = 5},
@@ -24,6 +27,29 @@ namespace Dev_Test_Nov_2021
                 new Product {Id = "B091NE9K5", Price =49.99, Quantity = 589},
                 new Product {Id = "B091NEGU5", Price =12.05, Quantity = 25},
             };
+
+            List<Product> lowStock = new List<Product> { };
+            Product lowestQuantity = new Product();
+
+            foreach (Product product in products)
+            {
+                if(product.Quantity < 10)
+                {
+                    lowStock.Add(product);
+                }
+            }
+
+            if (lowStock != null)
+            {
+                Console.WriteLine("Ids low stock");
+                foreach (Product product in lowStock)
+                {
+                    Console.WriteLine(product.Id);
+                }
+                Console.ReadLine();
+            }
+            
+
 
             //Part 3 
             int[] ordersIds = { 1, 2, 3, 4 };
