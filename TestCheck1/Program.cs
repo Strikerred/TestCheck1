@@ -19,6 +19,7 @@ namespace Dev_Test_Nov_2021
             List<Product> lowStock = new List<Product> { };
             Product lowestQuantity = new Product();
             double averagePrice = 0;
+            const double DISCOUNT = 0.70;
 
             List<Product> products = new List<Product> {
                 new Product {Id = "B091NE9K3", Price =59.96, Quantity = 5},
@@ -53,9 +54,18 @@ namespace Dev_Test_Nov_2021
 
             averagePrice = products.Sum(product => product.Price)/products.Count();
             Console.WriteLine($"The average price is {Math.Round(averagePrice, 2)}");
+            Console.WriteLine("");
+
+            products.Where(product => product.Id == "B091NE9K4")
+                .Select(product => { product.Price = product.Price * DISCOUNT; return product; }).ToList();
+
+            var prod = products.Find(product => product.Id == "B091NE9K4");
+
+            Console.WriteLine($"B091NE9K4 price has been decreased to {Math.Round(prod.Price, 2)}");
+            Console.WriteLine("");
+
+
             Console.ReadLine();
-
-
 
             //Part 3 
             int[] ordersIds = { 1, 2, 3, 4 };
