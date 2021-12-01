@@ -19,6 +19,7 @@ namespace TestCheck1
 
                 var result = client.DownloadString(API);
                 Console.WriteLine(Environment.NewLine + result);
+                Console.WriteLine("");
             }
         }
     }

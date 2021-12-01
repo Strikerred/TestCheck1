@@ -12,9 +12,14 @@ namespace Dev_Test_Nov_2021
     {
         static void Main(string[] args)
         {
+            
             AgeByName.GetDataWithoutAuthentication();
 
             //Part 2
+            List<Product> lowStock = new List<Product> { };
+            Product lowestQuantity = new Product();
+            double averagePrice = 0;
+
             List<Product> products = new List<Product> {
                 new Product {Id = "B091NE9K3", Price =59.96, Quantity = 5},
                 new Product {Id = "B091NEGU3", Price =7.05, Quantity = 10},
@@ -27,9 +32,6 @@ namespace Dev_Test_Nov_2021
                 new Product {Id = "B091NE9K5", Price =49.99, Quantity = 589},
                 new Product {Id = "B091NEGU5", Price =12.05, Quantity = 25},
             };
-
-            List<Product> lowStock = new List<Product> { };
-            Product lowestQuantity = new Product();
 
             foreach (Product product in products)
             {
@@ -45,10 +47,14 @@ namespace Dev_Test_Nov_2021
                 foreach (Product product in lowStock)
                 {
                     Console.WriteLine(product.Id);
-                }
-                Console.ReadLine();
+                }                
+                Console.WriteLine("");
             }
-            
+
+            averagePrice = products.Sum(product => product.Price)/products.Count();
+            Console.WriteLine($"The average price is {Math.Round(averagePrice, 2)}");
+            Console.ReadLine();
+
 
 
             //Part 3 
