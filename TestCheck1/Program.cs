@@ -12,7 +12,7 @@ namespace Dev_Test_Nov_2021
     {
         static void Main(string[] args)
         {
-            
+
             AgeByName.GetDataWithoutAuthentication();
 
             //Part 2
@@ -36,7 +36,7 @@ namespace Dev_Test_Nov_2021
 
             foreach (Product product in products)
             {
-                if(product.Quantity < 10)
+                if (product.Quantity < 10)
                 {
                     lowStock.Add(product);
                 }
@@ -48,11 +48,11 @@ namespace Dev_Test_Nov_2021
                 foreach (Product product in lowStock)
                 {
                     Console.WriteLine(product.Id);
-                }                
+                }
                 Console.WriteLine("");
             }
 
-            averagePrice = products.Sum(product => product.Price)/products.Count();
+            averagePrice = products.Sum(product => product.Price) / products.Count();
             Console.WriteLine($"The average price is {Math.Round(averagePrice, 2)}");
             Console.WriteLine("");
 
@@ -64,22 +64,100 @@ namespace Dev_Test_Nov_2021
             Console.WriteLine($"B091NE9K4 price has been decreased to {Math.Round(prod.Price, 2)}");
             Console.WriteLine("");
 
-
-            Console.ReadLine();
-
             //Part 3 
             int[] ordersIds = { 1, 2, 3, 4 };
             double[] ordersValues = { 25.5, 92.5, 78.23, 12.95, 83.67 };
             string[] ordersCustomers = { "Tracy Erkut", "Arvin Aitken", "Ryan Mae", "Sherri Smith", "Adam Weller" };
+
+            List<Order> orders = new List<Order>();
+            var arrays = new[] { ordersIds.Count(), ordersValues.Count(), ordersCustomers.Count() };
+
+            var checkLength = arrays.All(i => i == ordersIds.Length);
+
+            if (checkLength)
+            {
+                foreach (int pos in ordersIds)
+                {
+                    addOrder(pos);
+                }
+
+            }
+            else {
+                var maxValue = arrays.Max();
+                var minValue = arrays.Min();
+                var indexMax = arrays.ToList().IndexOf(maxValue);
+                var indexMin = arrays.ToList().IndexOf(minValue);
+
+                var diff = maxValue - minValue;
+
+                while (maxValue != minValue)
+                {
+                    if (ordersIds.Count() < maxValue)
+                    {
+                    ordersIds.Concat(new int[] { ordersIds.Count() + 1 });
+                    }
+
+                    if (ordersValues.Count() < maxValue)
+                    {
+                        ordersValues.Append(ordersValues.Count() + 1);
+                    }
+
+                    if (ordersCustomers.Count() < maxValue)
+                    {
+                        ordersCustomers.Append("AdditionaName" + 1);
+                    }
+
+                    minValue++;
+                }
+
+                foreach (int pos in ordersIds)
+                {
+                    addOrder(pos);
+                }
+            }
+
+            void addOrder(int position)
+            {
+                orders.Add(new Order
+                {
+                    Id = ordersIds[position],
+                    OrderValue = ordersValues[position],
+                    customer = new Customer { FullName = ordersCustomers[position] }
+                });
+            }
+
+            PrintCustomers(orders);
+
+            void PrintCustomers(List<Order> orderList)
+            {
+                Console.WriteLine("OrderId  OrderValue   Customers");
+                foreach (Order order in orderList)
+                {
+                    Console.WriteLine($"{order.Id}   {order.OrderValue}     {order.customer.FullName}");
+                }
+                Console.ReadLine();
+            }
         }
-    }
 
-    class Product
-    {
-        public string Id { get; set; }
+        class Product
+        {
+            public string Id { get; set; }
 
-        public double Price { get; set; }
+            public double Price { get; set; }
 
-        public int Quantity { get; set; }
+            public int Quantity { get; set; }
+        }
+
+        class Order
+        {
+            public int Id { get; set; }
+            public double OrderValue { get; set; }
+            public Customer customer { get; set; }
+        }
+
+        class Customer
+        {
+            public string FullName { get; set; }
+        }
     }
 }
