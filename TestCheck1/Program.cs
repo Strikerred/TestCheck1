@@ -94,17 +94,17 @@ namespace Dev_Test_Nov_2021
                 {
                     if (ordersIds.Count() < maxValue)
                     {
-                    ordersIds.Concat(new int[] { ordersIds.Count() + 1 });
+                        ordersIds = ordersIds.Concat(new int[] { ordersIds.Count() + 1 }).ToArray();
                     }
 
                     if (ordersValues.Count() < maxValue)
                     {
-                        ordersValues.Append(ordersValues.Count() + 1);
+                        ordersValues = ordersValues.Append(ordersValues.Count() + 1).ToArray();
                     }
 
                     if (ordersCustomers.Count() < maxValue)
                     {
-                        ordersCustomers.Append("AdditionaName" + 1);
+                        ordersCustomers = ordersCustomers.Append("AdditionaName" + 1).ToArray();
                     }
 
                     minValue++;
@@ -120,9 +120,9 @@ namespace Dev_Test_Nov_2021
             {
                 orders.Add(new Order
                 {
-                    Id = ordersIds[position],
-                    OrderValue = ordersValues[position],
-                    customer = new Customer { FullName = ordersCustomers[position] }
+                    Id = ordersIds[position-1],
+                    OrderValue = ordersValues[position-1],
+                    customer = new Customer { FullName = ordersCustomers[position-1] }
                 });
             }
 
@@ -131,9 +131,10 @@ namespace Dev_Test_Nov_2021
             void PrintCustomers(List<Order> orderList)
             {
                 Console.WriteLine("OrderId  OrderValue   Customers");
-                foreach (Order order in orderList)
+                var sortedList = orderList.OrderBy(o => o.OrderValue).ToList();
+                foreach (Order order in sortedList)
                 {
-                    Console.WriteLine($"{order.Id}   {order.OrderValue}     {order.customer.FullName}");
+                    Console.WriteLine($"{order.Id,5} {order.OrderValue,10} {order.customer.FullName,17}");
                 }
                 Console.ReadLine();
             }
